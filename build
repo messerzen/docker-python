@@ -32,7 +32,7 @@ while :; do
             CACHE_FLAG=''
             ;;
         -b|--base-image-tag)
-            if [[ -z $2 ]]; then
+            if [[ -z "$2" ]]; then
                 usage
                 printf 'ERROR: No TAG specified after the %s flag.\n' "$1" >&2
                 exit
