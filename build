@@ -16,7 +16,7 @@ EOF
 CACHE_FLAG='--no-cache'
 DOCKERFILE='Dockerfile'
 IMAGE_TAG='kaggle/python-build'
-BUILD_ARGS=''
+BUILD_ARGS=()
 
 while :; do
     case "$1" in 
@@ -37,7 +37,7 @@ while :; do
                 printf 'ERROR: No TAG specified after the %s flag.\n' "$1" >&2
                 exit
             fi
-            BUILD_ARGS="--build-arg BASE_TAG=$2"
+            BUILD_ARGS+=("--build-arg BASE_TAG=$2")
             shift # skip the flag value
             ;;
         -?*)
@@ -58,4 +58,4 @@ readonly IMAGE_TAG
 readonly BUILD_ARGS
 
 set -x
-docker build --rm --pull $CACHE_FLAG -t "$IMAGE_TAG" -f "$DOCKERFILE" $BUILD_ARGS .
+docker build --rm --pull $CACHE_FLAG -t "$IMAGE_TAG" -f "$DOCKERFILE" ${BUILD_ARGS[@]} .
